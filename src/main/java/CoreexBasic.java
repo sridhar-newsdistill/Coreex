@@ -17,7 +17,7 @@ public class CoreexBasic {
         final Map<Node, Double> basicScore = new HashMap<Node, Double>();
         final Map<Node, Double> weightedScore = new HashMap<Node, Double>();
 
-        String html = "<html> <body> Note: <p>A paragraph <a href=\"http://www.google.com\">with a link</a> in it. </p> <ul> <li> Some <em>emphatic words</em> here. </li> <li> More words. </li> </ul> </body> </html>";
+        String html = "<html><body>Note:<p>A paragraph <a href=\"http://www.google.com\"> with a link</a> in it.</p><ul><li>Some <em>emphatic words</em> here.</li><li>More words.</li></ul></body></html>";
         Document doc = Jsoup.parse(html);
 
         // total number of words in page used for weighted scoring function
@@ -27,14 +27,17 @@ public class CoreexBasic {
         StringTokenizer tokenizer = new StringTokenizer(doc.text());
         wordCount += tokenizer.countTokens();
         final double pageText = (double) wordCount;
-//        final double pageText = 11;
+//        final double pageText = 11;  // 11 words if we don't include words in link
+        System.out.println("pageText: " + pageText);
+
         final double weightRatio = .99;
         final double weightText = .01;
-        System.out.println("pageText: " + pageText);
 
         System.out.println(doc);
         System.out.println();
 
+        // jsoup has callback functions for doing DFS on the dom, tail will get called after all its descendants are
+        // visited which is what we want. We want to do a postorder traversal of the dom
         doc.traverse(new NodeVisitor() {
             @Override
             public void head(Node node, int depth) {
@@ -42,6 +45,8 @@ public class CoreexBasic {
 
             @Override
             public void tail(Node node, int depth) {
+                // Elements node represent html tags like <p>, <body>, <li>, <ul>
+                // TextNode represent actual text contained in the elements like "
                 if (node instanceof Element) {
                     Element e = (Element) node;
                     if (e.tag().getName().equals("a")) {
