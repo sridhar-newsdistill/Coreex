@@ -46,7 +46,7 @@ public class CoreexBasic {
             @Override
             public void tail(Node node, int depth) {
                 // Elements node represent html tags like <p>, <body>, <li>, <ul>
-                // TextNode represent actual text contained in the elements like "
+                // TextNode represent actual text contained in the elements
                 if (node instanceof Element) {
                     Element e = (Element) node;
                     if (e.tag().getName().equals("a")) {
@@ -80,6 +80,7 @@ public class CoreexBasic {
                 System.out.println("basicScore: " + nodeBasicScore);
                 System.out.println("weightedScore: " + nodeWeightedScore);
                 basicScore.put(node, nodeBasicScore);
+                weightedScore.put(node, nodeWeightedScore);
                 System.out.println();
             }
         });
