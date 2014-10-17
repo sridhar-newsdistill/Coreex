@@ -14,7 +14,7 @@ public class Coreex {
     public static void main(String[] args) {
 //        String html = "<html><body>Note:<p>A paragraph <a href=\"http://www.google.com\"> with a link</a> in it.</p><ul><li>Some <em>emphatic words</em> here.</li><li>More words.</li></ul></body></html>";
 //        Document doc = Jsoup.parse(html);
-        File input = new File("/Users/blin/businessweek.html");
+        File input = new File("businessweek.html");
         Document doc = null;
         try {
             doc = Jsoup.parse(input, "UTF-8");
@@ -130,8 +130,8 @@ public class Coreex {
         }
         System.out.println("highest subsetWeightedScore: " + maxSubsetWeightedScore);
         System.out.println("highest subsetWeightedScore Node: " + maxSubsetWeightedScoreNode);
-        System.out.println("Content Node Count: " + S.get(maxSubsetWeightedScoreNode).size());
         System.out.println();
+        System.out.println("Content Node Count: " + S.get(maxSubsetWeightedScoreNode).size());
         System.out.println();
         System.out.println("Content Nodes");
         for (Node node : S.get(maxSubsetWeightedScoreNode)) {
